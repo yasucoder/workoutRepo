@@ -1,0 +1,27 @@
+Simple Logging Facade for Java
+
+https://www.slf4j.org/manual.html
+
+1. Add log4j APIs -> log4j-api and core in Maven
+2. Add log4j-slf4j-impl in maven to use SLF4j with log4j
+
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-api</artifactId>
+    <version>2.7</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-core</artifactId>
+    <version>2.7</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-slf4j-impl</artifactId>
+    <version>2.7</version>
+</dependency>
+
+3. Find the latest version in maven repositary
+
+ERROR StatusLogger No log4j2 configuration file found. Using default configuration: logging only errors to the console.
+4. Add the Log4j configuration file in resource folder and add it as class path folder
