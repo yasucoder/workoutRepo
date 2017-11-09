@@ -1,0 +1,57 @@
+Obfuscate your java application by Proguard
+
+1. Install Proguard from https://www.guardsquare.com
+2. Create a proguard config file
+
+Create myconfig.pro that contains all the information about your java application.
+
+-injar : Specify the location of your jar file. i.e the compiled java application that contains the class files
+-outjar: This is the jar file proguard will create after obfuscation. This will contain all the mangled, obscure naming convention of the methods and variables in the class file if someone tries to reverse engineer.
+-printmapping: ProGurad outputs all the mapping information in this file for your reference.
+-keep: Indicate the class files or the methods that you don’t want ProGuard to obfuscate. For e.g. mypkg.MainAppFrame contains the entry point for the application with the main class, which will not get obfuscated in this example.
+
+myconfig.pro File
+-injars C:\Core\TestWorkspace\Prograud\input\obfuscator.jar
+-outjars C:\Core\TestWorkspace\Prograud\
+-libraryjars C:\Program Files\Java\jre1.8.0_131\lib\rt.jar
+
+-keepclasseswithmembers class ** {
+    public java.lang.String Test_Method (java.lang.String , java.lang.Object[] );
+}
+-dontshrink
+-obfuscationdictionary C:\Development_Avecto\proguard5.3.3\ObscateString\obs.txt
+-classobfuscationdictionary C:\Development_Avecto\proguard5.3.3\ObscateString\obs.txt
+-packageobfuscationdictionary C:\Development_Avecto\proguard5.3.3\ObscateString\obs.txt
+-dontoptimize
+-ignorewarnings
+
+3. Execure ProGuard
+Place the config file in the proguard.jar location 
+ProGuard.jar located in \proguard5.3.3\lib
+
+java -jar proguard.jar @myconfig.pro
+
+This will create obfuscated jar file in configured outjar location. 
+if the jar filename is provided in config file then it is obfuscate jar is created as configured filename
+
+This creates the following two files:
+
+<output>.jar: Contains the obfuscated class files of your application. You can distribute this without having to worry about someone reverse engineering your application easily.
+proguard.map: This file contains the mapping information for your reference.
+
+
+4. Sample proguard.map file
+
+This is a sample proguard.map file that indicates the original name of the java source objects (classfile, methods, variable etc.) and the new obfuscated name.
+
+myapp.AppToolBar -> myapp.ae:
+javax.swing.JButton btnNew -> d
+javax.swing.JButton btnOpen -> e
+5. Sample java source code (myapp.AppToolBar) before obfuscation.
+
+btnNew = changeButtonLabel(btnNew, language.getText("new"));
+btnOpen = changeButtonLabel(btnOpen, language.getText("open"));
+6. Sample java source code that was decompiled from the class file (myapp.ae) after obfuscation.
+
+d = a(d, n.a("new"));
+e = a(e, n.a("open"));
