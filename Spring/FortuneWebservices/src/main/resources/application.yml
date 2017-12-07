@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: FortuneWebservices
+server:
+  port: 9000
+  contextPath: /FortuneWebservices
+security:
+    user:
+      password: password
+    oauth2:
+      resource:
+        filter-order: 3
